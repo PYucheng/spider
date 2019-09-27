@@ -42,7 +42,6 @@ public class OneBookProcessor implements ProcessStrategy {
 
     originBook
         .setName(parseName(page))
-        .setImg(parseImg(page))
         .setScore(parseScore(page));
     page.putField("book", originBook);
     System.out.println(originBook.getName() + " accomplish!");
@@ -50,7 +49,7 @@ public class OneBookProcessor implements ProcessStrategy {
   }
 
   protected String parseName(Page page) {
-    return page.getHtml().xpath("//div[@id='wrapper']/h1/span/text()").toString();
+    return page.getHtml().xpath("//div[@class='title']/a/text()").toString();
   }
 
   protected String parseImg(Page page) {
@@ -60,7 +59,7 @@ public class OneBookProcessor implements ProcessStrategy {
   protected int parseScore(Page page) {
     try {
       String score = page.getHtml().xpath(
-          "//div[@id='interest_sectl']//strong[contains(@class, 'll') and contains(@class, 'rating_num')]/text()")
+          "//div[@class='rating']/span[@class='rating_nums']/text()")
           .toString();
       score = score.replaceAll("[\\s|\\u00A0.]", "");
       return Integer.valueOf(score);

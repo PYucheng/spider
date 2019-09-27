@@ -1,6 +1,8 @@
 package com.nowcoder.spider.service.spider;
 
 import com.nowcoder.spider.service.spider.strategy.ProcessStrategy;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -25,7 +27,7 @@ public class DefaultSpider implements PageProcessor {
   private static int ONE_SECOUND = 1000;
 
   //重试三次，等待1秒
-  private Site site = Site.me().setRetryTimes(3).setSleepTime(2 * ONE_SECOUND).setRetrySleepTime(2 * ONE_MINUTES);
+  private Site site = Site.me().setUserAgent("Mozilla/5.0 (Windows NT 10.0; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0").setRetryTimes(3).setSleepTime(2 * ONE_SECOUND).setRetrySleepTime(2 * ONE_MINUTES);
 
   /**
    * 真正实施的爬虫策略

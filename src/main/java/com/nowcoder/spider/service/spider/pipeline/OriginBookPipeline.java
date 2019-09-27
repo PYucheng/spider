@@ -1,11 +1,12 @@
 package com.nowcoder.spider.service.spider.pipeline;
 
 import com.nowcoder.spider.model.OriginBook;
-import java.util.Vector;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
+
+import java.util.Vector;
 
 /**
  * OriginBookPipeline Description: CreateDate: 2018/8/15
@@ -28,7 +29,7 @@ public class OriginBookPipeline implements CallablePipeline {
   @Override
   public void process(ResultItems resultItems, Task task) {
     originBook = resultItems.get("book");
-    originBook.setOriginUrl(task.getSite().getDomain());
+    //originBook.setOriginUrl(task.getSite().getDomain());
     notifyObservers(getResult());
   }
 
@@ -46,7 +47,7 @@ public class OriginBookPipeline implements CallablePipeline {
    * 该方法决定得到的结果是否合格，如果不合格抛出 {@link NullPointerException} 可以修改isQualifier判定方法 考虑到爬虫的不确定性，该条件尽可能的宽松
    */
   protected boolean isQualifier() {
-    return StringUtils.isNoneEmpty(
+    return StringUtils.isNotEmpty(
 //        originBook.getOriginUrl(),
 //        originBook.getName(),
 //        originBook.getAuthor(),

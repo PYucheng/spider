@@ -18,6 +18,11 @@
     <setting name="useGeneratedKeys" value="true"/>
   </settings>
 
+
+
   <!-- Continue going here -->
+  <mappers>
+    <mapper resource="com/nowcoder/spider/dao/bookMapper.xml"/>
+  </mappers>
 
 </configuration>

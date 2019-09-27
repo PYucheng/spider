@@ -21,20 +21,23 @@ public class IteratorProcessor extends FilterProcessor {
   private Set<String> requestCache = new HashSet<>(32);
 
   public IteratorProcessor() {
-    super(new OneBookProcessor());
+    super(new DoubanProcessor());
   }
 
-  public IteratorProcessor(ProcessStrategy processStrategy) {
+  public IteratorProcessor(DoubanProcessor processStrategy) {
     super(processStrategy);
   }
 
   @Override
   public void doProcess(Page page) {
-    if (StringUtils.startsWith(page.getRequest().getUrl(), "https://book.douban.com/tag/")) {
-      requestCache.addAll(page.getHtml().regex("https://book.douban.com/subject/[0-9]+/?").all());
+    if (StringUtils.startsWith(page.getRequest().getUrl(), "https://www.douban.com/doulist/110879547/")) {
+      //requestCache.addAll(page.getHtml().regex("https://www.douban.com/doulist/110879547/?start=[0-9]+&sort=seq&playable=0&sub_type=").all());
+      for(int i=0;i<=250;i+=25)
+        requestCache.add("https://www.douban.com/doulist/110879547/?start="+i+"&sort=seq&playable=0&sub_type=");
       page.addTargetRequests(new ArrayList<>(requestCache));
+      processStrategy.doProcess(page);
       requestCache.clear();
-      page.setSkip(true);
+      //page.setSkip(true);
     } else {
       processStrategy.doProcess(page);
     }
